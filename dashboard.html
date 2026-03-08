@@ -26,54 +26,94 @@
     <body class="bg-[#F8FAFC]">
         <header>
             <!-- Navbar -->
-            <div class="navbar bg-base-100 shadow-sm">
-                <div class="flex-1 flex items-center gap-3">
-                    <img src="./assets/github-logo.png" alt="GitHub Logo"
-                        class="w-10 h-10 object-contain">
-                    <a class="text-xl font-semibold">GitHub Issue Tracker</a>
+            <section>
+                <div class="navbar bg-base-100 shadow-sm rounded-xl">
+                    <div class="flex-1 flex items-center gap-3">
+                        <img src="./assets/github-logo.png" alt="GitHub Logo"
+                            class="w-10 h-10 object-contain">
+                        <a class="text-xl font-semibold">GitHub Issue
+                            Tracker</a>
+                    </div>
+                    <div class="flex gap-2">
+                        <label class="input">
+                            <svg class="h-[1em] opacity-50"
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24">
+                                <g
+                                    stroke-linejoin="round"
+                                    stroke-linecap="round"
+                                    stroke-width="2.5"
+                                    fill="none"
+                                    stroke="currentColor">
+                                    <circle cx="11" cy="11" r="8"></circle>
+                                    <path d="m21 21-4.3-4.3"></path>
+                                </g>
+                            </svg>
+                            <input type="search" required
+                                placeholder="Search issues..." />
+                        </label>
+                        <button class="btn btn-primary"><i
+                                class="fa-solid fa-plus"></i>New Issue</button>
+                    </div>
                 </div>
-                <div class="flex gap-2">
-                    <label class="input">
-                        <svg class="h-[1em] opacity-50"
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24">
-                            <g
-                                stroke-linejoin="round"
-                                stroke-linecap="round"
-                                stroke-width="2.5"
-                                fill="none"
-                                stroke="currentColor">
-                                <circle cx="11" cy="11" r="8"></circle>
-                                <path d="m21 21-4.3-4.3"></path>
-                            </g>
-                        </svg>
-                        <input type="search" required
-                            placeholder="Search issues..." />
-                    </label>
-                    <button class="btn btn-primary"><i
-                            class="fa-solid fa-plus"></i>New Issue</button>
-                </div>
-            </div>
+            </section>
 
             <!--Page Navigation Toggle -->
-            <div class="my-2 w-10/12 mx-auto bg-white p-2 mt-10 shadow-lg flex items-center">
+            <section>
                 <div
-                    class="p-3 gap-3">
-                    <button onclick="toggleStyle('all-filter-btn')"
-                        class="btn btn-primary text-white px-5 py-2"
-                        id="all-filter-btn">All</button>
-                    <button onclick="toggleStyle('open-filter-btn')"
-                        class="btn px-5 py-2"
-                        id="open-filter-btn">Open</button>
-                    <button onclick="toggleStyle('closed-filter-btn')"
-                        class="btn px-5 py-2"
-                        id="closed-filter-btn">Closed</button>
+                    class="my-2 w-10/12 mx-auto bg-white p-2 mt-10 shadow-md flex items-center rounded-xl">
+                    <div
+                        class="p-3 gap-3">
+                        <button onclick="toggleStyle('all-filter-btn')"
+                            class="btn btn-primary text-white px-5 py-2"
+                            id="all-filter-btn">All</button>
+                        <button onclick="toggleStyle('open-filter-btn')"
+                            class="btn px-5 py-2"
+                            id="open-filter-btn">Open</button>
+                        <button onclick="toggleStyle('closed-filter-btn')"
+                            class="btn px-5 py-2"
+                            id="closed-filter-btn">Closed</button>
+                    </div>
                 </div>
-            </div>
-
+            </section>
         </header>
         <main>
+            <!-- issues-tracker -->
+            <section id="issue-tracker">
+                <div
+                    class="my-2 w-10/12 mx-auto bg-white p-5 mt-5 shadow-md flex items-center gap-2 rounded-t-xl">
 
+                    <img src="./assets/Aperture.png" alt="Logo">
+
+                    <div class="flex flex-col flex-1">
+                        <h1 class="text-2xl font-bold"><span
+                                id="issues-count">0</span> Issues</h1>
+                        <p class="text-gray-500">Track and manage your project
+                            issues</p>
+                    </div>
+
+                    <div class="flex gap-4">
+                        <div class="flex items-center gap-1">
+                            <div
+                                class="w-3 h-3 rounded-full bg-[#00A96E]"></div>
+                            <span>Open</span>
+                        </div>
+                        <div class="flex items-center gap-1">
+                            <div
+                                class="w-3 h-3 rounded-full bg-[#A855F7]"></div>
+                            <span>Closed</span>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+            <section id="allCards" class="space-y-5">
+
+            </section>
+
+            <section id="filtered-section" class="hidden">
+
+            </section>
         </main>
         <script src="./scripts/script.js"></script>
     </body>
