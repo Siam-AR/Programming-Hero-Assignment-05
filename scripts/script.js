@@ -18,5 +18,18 @@ loginButton.addEventListener("click", () => {
   }
 });
 
+// Page Navigation Toggle
+const allFilterBtn = document.getElementById('all-filter-btn');
+const openFilterBtn = document.getElementById('open-filter-btn');
+const closedFilterBtn = document.getElementById('closed-filter-btn');
+function toggleStyle(id) {
+
+    allFilterBtn.classList.remove('btn-primary', 'text-white');
+    openFilterBtn.classList.remove('btn-primary', 'text-white');
+    closedFilterBtn.classList.remove('btn-primary', 'text-white');
+
+    const selected = document.getElementById(id);
+    selected.classList.add('btn-primary', 'text-white');
+}
 
 
