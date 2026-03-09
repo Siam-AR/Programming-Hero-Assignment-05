@@ -106,14 +106,14 @@ const displayIssues = (issues) => {
             };
 
             return `
-        <span class="flex items-center gap-0.25 text-sm px-1 pr-2 pl-2 py-[1px] rounded-full border ${style.border} ${style.text} ${style.bg}">
+             <span class="flex items-center gap-0.25 text-sm px-1 pr-2 pl-2 py-[1px] rounded-full border ${style.border} ${style.text} ${style.bg}">
             ${
               style.iconImg
                 ? `<img src="${style.iconImg}" class="w-2 h-2">`
                 : style.iconFA
             }
             ${label.toUpperCase()}
-        </span>
+          </span>
         `;
           })
           .join("")}
@@ -138,4 +138,132 @@ const displayIssues = (issues) => {
   });
 
   manageSpinner(false);
+};
+
+// Load Issue Details
+const loadIssueDetails = async (id) => {
+  const url = `https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`;
+
+  const res = await fetch(url);
+  const data = await res.json();
+
+  displayIssueDetails(data.data);
+};
+
+// Display Issue Details
+const displayIssueDetails = (issue) => {
+  const container = document.getElementById("issue-details-container");
+
+    container.innerHTML = `
+        <div class="w-full px-8">
+
+        <h2 class="text-2xl font-bold mb-2">
+            ${issue.title}
+        </h2>
+
+        <div class="flex items-center gap-3 text-sm mb-4">
+
+            <span class="px-3 py-1 rounded-full text-white ${
+              issue.status === "open" ? "bg-green-700" : "bg-red-600"
+            }">
+            ${issue.status === "open" ? "Opened" : "Closed"}
+            </span>
+                        
+            <div class="h-2 w-2 rounded-full bg-gray-500"></div>
+
+            <span class="text-gray-500">
+            Opened by ${issue.author}
+            </span>
+            
+            <div class="h-2 w-2 rounded-full bg-gray-500"></div>
+
+            <span class="text-gray-500">
+            ${new Date(issue.createdAt).toLocaleDateString()}
+            </span>
+
+        </div>
+
+        <div class="flex gap-2 flex-wrap mb-4">
+        ${issue.labels
+          .map((label) => {
+            const labelName = label.toLowerCase();
+
+            const labelConfig = {
+              bug: {
+                text: "text-red-500",
+                bg: "bg-red-100",
+                border: "border-red-600",
+                iconImg: "",
+                iconFA: `<i class="fa-solid fa-bug" style="color: #ef4444;"></i>`,
+              },
+              "help wanted": {
+                text: "text-orange-500",
+                bg: "bg-orange-100",
+                border: "border-orange-600",
+                iconImg: "",
+                iconFA: `<i class="fa-solid fa-life-ring" style="color: #d97706;"></i>`,
+              },
+              enhancement: {
+                text: "text-green-500",
+                bg: "bg-green-100",
+                border: "border-green-600",
+                iconImg: "",
+                iconFA: `<i class="fa-solid fa-wand-magic-sparkles" style="color: #00a96e;"></i>`,
+              },
+            };
+
+            const style = labelConfig[labelName] || {
+              text: "text-gray-500",
+              bg: "bg-gray-100",
+              border: "border-gray-600",
+              iconImg: "",
+              iconFA: `<i class="fa-solid fa-circle-info" style="color: #9ca3af;"></i>`,
+            };
+
+            return `
+            <span class="flex items-center gap-1 text-sm px-1 py-0.5 rounded-full border ${style.border} ${style.text} ${style.bg}">
+                ${style.iconImg ? `<img src="${style.iconImg}" class="w-3 h-3">` : style.iconFA}
+                ${label.toUpperCase()}
+            </span>
+        `;
+          })
+          .join("")}
+    </div>
+
+         <p class="text-gray-600 text-sm mb-6">
+            ${issue.description}
+        </p>
+
+      <div class="bg-gray-100 p-4 rounded-lg flex justify-between">
+
+          <div>
+              <p class="text-sm text-gray-500">Assignee</p>
+              <p class="font-semibold">${issue.author}</p>
+          </div>
+
+          <div>
+              <p class="text-sm text-gray-500">Priority</p>
+              <span class="px-3 py-1 rounded-full text-white ${
+                issue.priority.toLowerCase() === "high"
+                  ? "bg-red-600"
+                  : issue.priority.toLowerCase() === "medium"
+                    ? "bg-orange-600"
+                    : "bg-green-600"
+              } text-xs">
+                ${issue.priority.toUpperCase()}
+              </span>
+          </div>
+
+      </div>
+
+    </div>
+  `;
+
+  // wider modal
+  const modalBox = document.querySelector("#issue_modal .modal-box");
+  modalBox.classList.add("w-full", "max-w-3xl");
+  modalBox.style.paddingLeft = "2rem";
+  modalBox.style.paddingRight = "2rem";
+
+  document.getElementById("issue_modal").showModal();
 };
