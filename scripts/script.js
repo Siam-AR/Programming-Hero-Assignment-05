@@ -301,3 +301,16 @@ const displayIssueDetails = (issue) => {
   document.getElementById("issue_modal").showModal();
 };
 
+// loadingSpiner
+const manageloadingSpiner = (status) => {
+  const loadingSpiner = document.getElementById("loadingSpiner");
+  const cardContainer = document.getElementById("allCards");
+
+  if (status) {
+    loadingSpiner.classList.remove("hidden");
+    cardContainer.classList.add("hidden");
+  } else {
+    loadingSpiner.classList.add("hidden");
+    cardContainer.classList.remove("hidden");
+  }
+};
