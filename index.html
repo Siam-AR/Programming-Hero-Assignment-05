@@ -20,21 +20,24 @@
     </head>
 
     <body class="bg-[#F8FAFC]">
-        <main class="min-h-screen flex items-center justify-center px-4 py-16">
+        <main
+            class="min-h-screen flex items-center justify-center px-4 sm:px-6 md:px-8 py-10 sm:py-14 md:py-16">
 
-            <div class="bg-white rounded-xl shadow-lg p-8 space-y-6
-              w-full max-w-md">
+            <div
+                class="bg-white rounded-xl shadow-lg p-6 sm:p-8 space-y-6 w-full max-w-sm sm:max-w-md">
 
+                <!-- logo & title -->
                 <div class="text-center space-y-3">
-                    <img src="./assets/github-logo.png" class="w-20 mx-auto"
-                        alt="github logo">
-                    <h1 class="text-2xl font-semibold text-gray-800">GitHub
+                    <img src="./assets/github-logo.png"
+                        class="w-16 sm:w-20 mx-auto" alt="github logo">
+                    <h1
+                        class="text-xl sm:text-2xl font-semibold text-gray-800">GitHub
                         Issues Tracker</h1>
-                    <p class="text-gray-500 text-sm">Sign in to manage your
-                        issues</p>
+                    <p class="text-gray-500 text-xs sm:text-sm">Sign in to
+                        manage your issues</p>
                 </div>
 
-                <!-- Username -->
+                <!-- username -->
                 <div class="space-y-1">
                     <label
                         class="text-sm font-medium text-gray-700">Username</label>
@@ -42,7 +45,8 @@
                         class="input input-bordered w-full">
                     <p class="text-xs text-blue-600">Default: admin</p>
                 </div>
-                <!-- Password -->
+
+                <!-- password -->
                 <div class="space-y-1">
                     <label class="text-sm font-medium text-gray-700">
                         Password
@@ -53,6 +57,7 @@
                         Default: admin123
                     </p>
                 </div>
+
                 <button class="btn btn-primary w-full">Sign In</button>
 
                 <div class="flex items-center gap-2 my-3">
@@ -65,11 +70,12 @@
                 <div>
                     <div>
                         <p
-                            class="text-gray-500 text-center text-sm">DemoCredentials:<br><br>
-                        </p>
+                            class="text-gray-500 text-center text-xs sm:text-sm">Demo
+                            Credentials:<br><br></p>
                     </div>
+
                     <div
-                        class="bg-gray-100 rounded-lg p-3 text-center text-sm text-gray-700">
+                        class="bg-gray-100 rounded-lg p-3 text-center text-xs sm:text-sm text-gray-700">
                         <p class="text-gray-500 mb-2">
                             <strong class="bold text-black">Username: </strong>
                             admin <br>
@@ -80,7 +86,9 @@
                 </div>
 
             </div>
+
         </main>
+
         <script src="./scripts/script.js"></script>
     </body>
 </html>
