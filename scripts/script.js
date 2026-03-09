@@ -31,9 +31,23 @@ function toggleStyle(id) {
   selected.classList.add("btn-primary", "text-white");
 }
 
+// Spinner
+const manageSpinner = (status) => {
+  const spinner = document.getElementById("spinner");
+  const cardContainer = document.getElementById("allCards");
+
+  if (status) {
+    spinner.classList.remove("hidden");
+    cardContainer.classList.add("hidden");
+  } else {
+    spinner.classList.add("hidden");
+    cardContainer.classList.remove("hidden");
+  }
+};
+
 // Load All Issues
 const loadIssues = () => {
-  manageloadingSpiner(true);
+  manageSpinner(true);
 
   fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues")
     .then((res) => res.json())
@@ -139,14 +153,14 @@ const displayIssues = (issues) => {
             };
 
             return `
-             <span class="flex items-center gap-0.25 text-sm px-1 pr-2 pl-2 py-[1px] rounded-full border ${style.border} ${style.text} ${style.bg}">
+        <span class="flex items-center gap-0.25 text-sm px-1 pr-2 pl-2 py-[1px] rounded-full border ${style.border} ${style.text} ${style.bg}">
             ${
               style.iconImg
                 ? `<img src="${style.iconImg}" class="w-2 h-2">`
                 : style.iconFA
             }
             ${label.toUpperCase()}
-          </span>
+        </span>
         `;
           })
           .join("")}
@@ -170,7 +184,7 @@ const displayIssues = (issues) => {
     container.append(card);
   });
 
-  manageloadingSpiner(false);
+  manageSpinner(false);
 };
 
 // Load Issue Details
@@ -187,7 +201,7 @@ const loadIssueDetails = async (id) => {
 const displayIssueDetails = (issue) => {
   const container = document.getElementById("issue-details-container");
 
-    container.innerHTML = `
+  container.innerHTML = `
         <div class="w-full px-8">
 
         <h2 class="text-2xl font-bold mb-2">
@@ -301,16 +315,45 @@ const displayIssueDetails = (issue) => {
   document.getElementById("issue_modal").showModal();
 };
 
-// loadingSpiner
-const manageloadingSpiner = (status) => {
-  const loadingSpiner = document.getElementById("loadingSpiner");
-  const cardContainer = document.getElementById("allCards");
+// Filter Issues
+const filterIssues = (type) => {
+  manageSpinner(true);
 
-  if (status) {
-    loadingSpiner.classList.remove("hidden");
-    cardContainer.classList.add("hidden");
-  } else {
-    loadingSpiner.classList.add("hidden");
-    cardContainer.classList.remove("hidden");
-  }
+  fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues")
+    .then((res) => res.json())
+    .then((data) => {
+      let issues = data.data;
+
+      if (type !== "all") {
+        issues = issues.filter((issue) => issue.status === type);
+      }
+
+      displayIssues(issues);
+    });
 };
+
+// Search Issues
+const searchIssues = (text) => {
+  manageSpinner(true);
+
+  const url = `https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${text}`;
+
+  fetch(url)
+    .then((res) => res.json())
+    .then((data) => {
+      displayIssues(data.data);
+    });
+};
+
+// Load initial data
+loadIssues();
+
+document.querySelector('input[type="search"]').addEventListener("input", (e) => {
+    const value = e.target.value.trim();
+
+    if (value === "") {
+      loadIssues();
+    } else {
+      searchIssues(value);
+    }
+  });
